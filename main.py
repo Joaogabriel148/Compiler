@@ -2,11 +2,11 @@ import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import re
 
-# ANALISADOR LÉXICO
+# analizador léxico -----------------------------------------------------------------
 def tokenize(code):
     token_specification = [
         ('NUMBER',   r'\d+'),
-        ('STRING',   r'"[^"\n]*"|\'[^\'\n]*\''),  # string entre "aspas" ou 'aspas'
+        ('STRING',   r'"[^"\n]*"|\'[^\'\n]*\''),
         ('ASSIGN',   r'='),
         ('PRINT',    r'print'),
         ('IF',       r'if'),
@@ -41,7 +41,7 @@ def tokenize(code):
             tokens.append((kind, value, line_num))
     return tokens
 
-# PARSER E INTERPRETADOR
+# parser e interpretador -----------------------------------------------------------------
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -226,7 +226,7 @@ def compilar():
     except Exception as e:
         messagebox.showerror("Erro de Compilação", str(e))
 
-# INTERFACE GRÁFICA
+# interface gráfica -----------------------------------------------------------------
 janela = tk.Tk()
 janela.title("Compiler")
 janela.configure(bg="#1e1e1e")
