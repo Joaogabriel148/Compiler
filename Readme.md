@@ -89,8 +89,6 @@ Interface gráfica criada a partir de uma biblioteca do python chamada de Tkinte
                 return left / right
         raise ValueError("Nó inválido")
 ```
-## :soon: Implementação futura
-* Projeto poderá conter algumas alterações de melhorias.
 
 ## :handshake: Colaboradores
 <table>
@@ -104,6 +102,3 @@ Interface gráfica criada a partir de uma biblioteca do python chamada de Tkinte
     </td>
   </tr>
 </table>
-
-## :dart: Status do projeto
-* em fase de desenvolvimento.
