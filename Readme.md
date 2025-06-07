@@ -10,7 +10,7 @@ Projeto criado para a matéria de Códigos de Alta Performance Web. sites de art
 * Python
 * Tkinter
 
-## :game_die: Estrutura de dados
+## :game_die: Etapa Das Análises
 - Análise Léxica
   - Divide o código-fonte em tokens, reconhecendo números, strings, operadores, identificadores, palavras-chave (print, if, else, while), etc.
   
