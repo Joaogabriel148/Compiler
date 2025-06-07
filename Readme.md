@@ -10,6 +10,10 @@ Projeto criado para a matéria de Códigos de Alta Performance Web. sites de art
 * Python
 * Tkinter
 
+## : Interface Gráfica
+Interface gráfica criada a partir de uma biblioteca do python chamada de Tkinter
+<img src='img\Captura de tela 2025-06-03 143900.png'>
+
 ## :game_die: Etapa Das Análises
 - Análise Léxica
   - Divide o código-fonte em tokens, reconhecendo números, strings, operadores, identificadores, palavras-chave (print, if, else, while), etc.
