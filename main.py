@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import re
 
-# analizador léxico -----------------------------------------------------------------
+# analisador lexico --------------------------------------------------------------------------
 def tokenize(code):
     token_specification = [
         ('NUMBER',   r'\d+'),
@@ -41,7 +41,7 @@ def tokenize(code):
             tokens.append((kind, value, line_num))
     return tokens
 
-# parser e interpretador -----------------------------------------------------------------
+# parser e interpretador ---------------------------------------------------------------------------
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -65,6 +65,7 @@ class Parser:
     def parse_expression(self):
         return self.parse_term()
 
+# Árvore Sintática --------------------------------------------------------------------------
     def parse_term(self):
         node = self.parse_factor()
         while self.pos < len(self.tokens) and self.tokens[self.pos][1] in ('+', '-'):
@@ -97,7 +98,7 @@ class Parser:
         elif tok_val == '(':
             self.pos += 1
             expr = self.parse_expression()
-            self.match('OP')  # deve ser ')'
+            self.match('OP')
             return expr
         else:
             raise SyntaxError(f"Token inesperado: {tok_val} na linha {self.current_line()}")
@@ -212,7 +213,7 @@ class Parser:
         while self.pos < len(self.tokens):
             self.statement()
 
-# Compilador
+# Compilador -------------------------------------------------------------------------------------
 def compilar():
     codigo = entrada.get("1.0", tk.END)
     try:
@@ -226,9 +227,9 @@ def compilar():
     except Exception as e:
         messagebox.showerror("Erro de Compilação", str(e))
 
-# interface gráfica -----------------------------------------------------------------
+# interface ---------------------------------------------------------------------------------
 janela = tk.Tk()
-janela.title("Compiler")
+janela.title("Compilador Python Educacional")
 janela.configure(bg="#1e1e1e")
 
 fonte = ("Consolas", 12)
