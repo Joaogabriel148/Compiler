@@ -4,46 +4,86 @@
 Projeto criado para a matéria de Códigos de Alta Performance Web. sites de artes.
 
 ## :books: Contextualização
-* <b>Contextualização </b>: A aplicação em si e um compilador de codigos que tem 
+* <b>Contextualização </b>: A aplicação em si e um compilador de codigos que tem como funcionalidades: Análise Léxica, Análise Sintática e Análise Semântica
 
 ## :wrench: Tecnologias utilizadas
 * Python
 * Tkinter
 
 ## :game_die: Estrutura de dados
-- Usuário
-  - as informações de cadastro do usuário no site
+- Análise Léxica
+  - Divide o código-fonte em tokens, reconhecendo números, strings, operadores, identificadores, palavras-chave (print, if, else, while), etc.
   
-```s
-  Usuário {
-        user_name: "nome do usuário"
-        user_sobrenome: "sobrenome do usuário"
-        user_email: "xxxxxx@gmail.com"
-        user_password: "xxxxxxxxx"
-        user_id: 0000
-    }
+```python
+  def tokenize(code):
+    token_specification = [
+        ('NUMBER',   r'\d+'),
+        ('STRING',   r'"[^"\n]*"|\'[^\'\n]*\''),
+        ('ASSIGN',   r'='),
+        ('PRINT',    r'print'),
+        ('IF',       r'if'),
+        ('ELSE',     r'else'),
+        ('WHILE',    r'while'),
+        ('ID',       r'[A-Za-z_]\w*'),
+        ('RELOP',    r'==|!=|<=|>=|<|>'),
+        ('OP',       r'[+\-*/()]'),
+        ('LBRACE',   r'\{'),
+        ('RBRACE',   r'\}'),
+        ('NEWLINE',  r'\n'),
+        ('SKIP',     r'[ \t]+'),
+        ('MISMATCH', r'.'),
+    ]
+
 ```
 
-- Filtro
-  - o usuário deve ser capaz de filtar oa artes por: estilo, nome e ID
+- Análise Sintática
+  - Verifica a estrutura gramatical dos comandos, garantindo que a ordem dos tokens siga regras da linguagem.
   
-```s
-  filtro {
-        art_name: "Nome do jogo"
-        art_style: "estilo do jogo"
-        art_ID: 0
-    }
+```python
+  class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.pos = 0
+        self.variables = {}
+        self.output = ""
+
+    def current_line(self):
+        return self.tokens[self.pos][2] if self.pos < len(self.tokens) else -1
+
+    def match(self, expected_type):
+        if self.pos < len(self.tokens) and self.tokens[self.pos][0] == expected_type:
+            val = self.tokens[self.pos][1]
+            self.pos += 1
+            return val
+        raise SyntaxError(f"Esperado: {expected_type} na linha {self.current_line()}")
+
+    def match_peek(self, kind):
+        return self.pos < len(self.tokens) and self.tokens[self.pos][0] == kind
+
+    def parse_expression(self):
+        return self.parse_term()
 ```
-- Artes
-  - o usuário deve ser capaz de ver: o nome da arte, imagem e estilo
+- Análise Semântica
+  - O que faz: Verifica se as operações fazem sentido, ou seja, se os significados estão corretos.
   
-```s
-  artes {
-        art_name:"Nome da arte"
-        art_img:"img.jpg"
-        art_style:"estilo da arte"
-        art_id:0000
-    }
+```python
+  def eval_node(self, node):
+        if isinstance(node, int) or isinstance(node, str):
+            return node
+        elif isinstance(node, tuple):
+            if node[0] == 'var':
+                return self.variables.get(node[1], 0)
+            left = self.eval_node(node[1])
+            right = self.eval_node(node[2])
+            if node[0] == '+':
+                return left + right
+            elif node[0] == '-':
+                return left - right
+            elif node[0] == '*':
+                return left * right
+            elif node[0] == '/':
+                return left / right
+        raise ValueError("Nó inválido")
 ```
 ## :soon: Implementação futura
 * Projeto poderá conter algumas alterações de melhorias.
